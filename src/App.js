@@ -30,18 +30,21 @@ export default class App extends Component {
   draw() {
     const h = 900;
     const w = 1800;
+    const padding = 30;
     const evenBarColor = "#0B132B";
     const oddBarColor = "#1C2541";
     // Scales the height of the bars from 0,max to 0,h
-    const scaleHeight = d3.scaleLinear();
-    scaleHeight
+    const yScale = d3.scaleLinear()
       .domain([0, d3.max(this.state.data.data, d => d[1])])
-      .range([0, h]);
+      .range([padding, h - padding]);
 
-    const xAxis = d3.axisBottom(xScale);
+    const xScale = d3.scaleLinear()
+      .domain([0, this.state.data.data.length])
+      .range([padding + 15, w - padding]);
 
 
 
+    // Tooltip when hovering over bars
     const tooltip = d3.select(".App")
       .append("div")
       .attr("class", "tooltip");
@@ -56,10 +59,10 @@ export default class App extends Component {
       .data(this.state.data.data)
       .enter()
       .append("rect")
-      .attr("width", (d, i) => w / this.state.data.data.length + 5)
-      .attr("height", d => scaleHeight(d[1]))
-      .attr("x", (d, i) => i * (w / this.state.data.data.length))
-      .attr("y", d => h - scaleHeight(d[1]))
+      .attr("width", (d, i) => w / this.state.data.data.length)
+      .attr("height", d => yScale(d[1]) - padding)
+      .attr("x", (d, i) => i * (w / (this.state.data.data.length + 12)) + padding + 15)
+      .attr("y", d => h - yScale(d[1]))
       // .attr("class", "bar")   // adds bar class to element
       .each((d, i, node) => {       // Third arg is the node, node[i] targets the current bar
         i % 2 === 0 ? d3.select(node[i]).style("fill", evenBarColor) : d3.select(node[i]).style("fill", oddBarColor);
@@ -80,11 +83,21 @@ export default class App extends Component {
         }
       });
 
-    // this.boi = this.svg
-    //   .append("text")
-    //   .attr("x", 30)
-    //   .attr("y", 30)
 
+    // Draws the X-axis
+    const xAxis = d3.axisBottom(xScale)
+    svg.append("g")
+      .attr("transform", "translate(0, " + (h - padding) + ")")
+      .call(xAxis)
+      .style("fill", "red")
+      .style("font-size", "20px")
+    // Draws the Y-axis
+    const yAxis = d3.axisLeft(yScale)
+    svg.append("g")
+      .attr("transform", "translate(50, " + 0 + ")")
+      .call(yAxis)
+      .style("fill", "red")
+      .style("font-size", "20px")
   }
 
 
