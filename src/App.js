@@ -35,13 +35,22 @@ export default class App extends Component {
     const oddBarColor = "#1C2541";
     // Scales the height of the bars from 0,max to 0,h
     const yScale = d3.scaleLinear()
-      .domain([0, d3.max(this.state.data.data, d => d[1])])
+      .domain([0, d3.max(this.state.data.data, d => d[1]) + 2000])
       .range([padding, h - padding]);
+    // Reversed for the Y-axis
+    const yScaleReverse = d3.scaleLinear()
+      .domain([0, d3.max(this.state.data.data, d => d[1]) + 2000])
+      .range([h - padding, padding]);
 
     const xScale = d3.scaleLinear()
       .domain([0, this.state.data.data.length])
-      .range([padding + 15, w - padding]);
-
+      .range([padding + 45, w - padding]);
+    // Scales and writes the years on the x-axis
+    const min = d3.min(this.state.data.data, d => d[0].split("-")[0])
+    const max = d3.max(this.state.data.data, d => d[0].split("-")[0])
+    const yearsScale = d3.scaleLinear()
+      .domain([min, max])
+      .range([padding + 45, w - padding]);
 
 
     // Tooltip when hovering over bars
@@ -61,16 +70,20 @@ export default class App extends Component {
       .append("rect")
       .attr("width", (d, i) => w / this.state.data.data.length)
       .attr("height", d => yScale(d[1]) - padding)
-      .attr("x", (d, i) => i * (w / (this.state.data.data.length + 12)) + padding + 15)
+      .attr("x", (d, i) => xScale(i))
       .attr("y", d => h - yScale(d[1]))
       // .attr("class", "bar")   // adds bar class to element
       .each((d, i, node) => {       // Third arg is the node, node[i] targets the current bar
-        i % 2 === 0 ? d3.select(node[i]).style("fill", evenBarColor) : d3.select(node[i]).style("fill", oddBarColor);
+        i % 2 === 0
+          ? d3.select(node[i]).style("fill", evenBarColor)
+          : d3.select(node[i]).style("fill", oddBarColor);
       })
       .on("mouseover", (d, i, node) => {
-        tooltip.text(`Date: ${d[0]}, GDP: ${d[1]}`)
+        const date = d[0].split('-');
+        console.log(date)
+        tooltip.text(`Date: ${date[2]}.${date[1]}.${date[0]}, $${d[1]} Billion`)
           .style("opacity", 1)
-          .style("left", i * 4 + "px")
+          .style("left", (xScale(i) - 300) + "px")
           .style("top", h - 200 + "px");
         d3.select(node[i]).style("fill", "cyan");
       })
@@ -83,21 +96,21 @@ export default class App extends Component {
         }
       });
 
-
-    // Draws the X-axis
-    const xAxis = d3.axisBottom(xScale)
+    // Draws the X-axis, tickFormat formats the numbers to look like 0000 instead of 0,000
+    const xAxis = d3.axisBottom(yearsScale).tickFormat(d3.format("d"))
     svg.append("g")
       .attr("transform", "translate(0, " + (h - padding) + ")")
       .call(xAxis)
-      .style("fill", "red")
-      .style("font-size", "20px")
+      .attr("class", "axes")
+
     // Draws the Y-axis
-    const yAxis = d3.axisLeft(yScale)
+    const yAxis = d3.axisLeft(yScaleReverse)
     svg.append("g")
-      .attr("transform", "translate(50, " + 0 + ")")
+      .attr("transform", "translate(80, " + 0 + ")")
       .call(yAxis)
-      .style("fill", "red")
-      .style("font-size", "20px")
+      .attr("class", "axes");
+
+
   }
 
 
