@@ -8,18 +8,18 @@ export default class USAGDP extends Component {
     this.state = {};
   }
   componentDidMount() {
-
     /*  --- Online data fetching ---
-        axios.get("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json")
-          .then(res => {
-            const data = res.data;
-            this.setState({ data });
-          })
-        '../../gdp/BaHGDPv2.json'
+    axios.get('https://api.tradingeconomics.com/historical/country/bosnia%20and%20herzegovina/indicator/gdp?c=guest:guest&format=json')
+      .then(res => {
+        const data = res.data;
+        this.setState({ data });
+        console.log(data)
+      })
     */
     //  Using local json data (for speed)
-    const data = require('../../gdp/USAGDPv2.json');
+    const data = require('../../gdp/BaHGDPv2.json');
     this.setState({ data })
+
   }
   draw() {
     d3.select(".App").selectAll("svg").remove();    // Makes new svg replace old one(removes old one)
@@ -30,11 +30,11 @@ export default class USAGDP extends Component {
     const oddBarColor = "#1C2541";
     // Scales the height of the bars from 0,max to 0,h
     const yScale = d3.scaleLinear()
-      .domain([0, d3.max(this.state.data.data, d => d[1]) + 2000])
+      .domain([0, d3.max(this.state.data.data, d => parseInt((d[1] / 1000000000).toFixed(2)) + 2)])
       .range([padding, h - padding]);
     // Reversed for the Y-axis
     const yScaleReverse = d3.scaleLinear()
-      .domain([0, d3.max(this.state.data.data, d => d[1]) + 2000])
+      .domain([0, d3.max(this.state.data.data, d => parseInt((d[1] / 1000000000).toFixed(2)) + 1)])
       .range([h - padding, padding]);
 
     const xScale = d3.scaleLinear()
@@ -63,9 +63,9 @@ export default class USAGDP extends Component {
       .enter()
       .append("rect")
       .attr("width", (d, i) => w / this.state.data.data.length)
-      .attr("height", d => yScale(d[1]) - padding)
+      .attr("height", d => yScale((d[1] / 1000000000).toFixed(2)) - padding)
       .attr("x", (d, i) => xScale(i))
-      .attr("y", d => h - yScale(d[1]))
+      .attr("y", d => h - yScale((d[1] / 1000000000).toFixed(2)))
       .each((d, i, node) => {       // Third arg is the node, node[i] targets the current bar
         i % 2 === 0
           ? d3.select(node[i]).style("fill", evenBarColor)
@@ -73,14 +73,14 @@ export default class USAGDP extends Component {
       })
       .on("mouseover", (d, i, node) => {
         const date = d[0].split('-');
-        tooltip.text(`Date: ${date[2]}.${date[1]}.${date[0]}, $${d[1]} Billion`)
+        tooltip.text(`Date: ${date[2]}.${date[1]}.${date[0]}, $${(d[1] / 1000000000).toFixed(2)} Billion`)
           .style("display", "inline")
           .style("left", (xScale(i) - 300) + "px")
           .style("top", h - 200 + "px");
         d3.select(node[i]).style("fill", "cyan");
       })
       .on("mouseout", (d, i, node) => {
-        tooltip.style("display", "none")
+        tooltip.style("display", "none");
         if (i % 2 === 0) {
           d3.select(node[i]).style("fill", evenBarColor);
         } else {
@@ -101,6 +101,7 @@ export default class USAGDP extends Component {
       .attr("transform", "translate(80, " + 0 + ")")
       .call(yAxis)
       .attr("class", "axes");
+
   }
 
   render() {

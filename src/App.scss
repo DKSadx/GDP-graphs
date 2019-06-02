@@ -6,9 +6,7 @@
 body {
   background-image: url('./images/bg.jpg');
   background-repeat: no-repeat;
-  height: 100vh;
-  width: 100vw;
-
+  background-size: cover;
   .App {
     height: 900px;
     width: 1800px;
@@ -22,15 +20,8 @@ body {
       height: 100px;
       width: 200px;
       font-size: 25px;
-      opacity: 0;
       z-index: 10;
-      display: inline;
-    }
-    p {
-      position: absolute;
-      top: 5%;
-      left: 30%;
-      font-size: 6em;
+      display: none;
     }
     .GDP-menu {
         position: fixed;
@@ -59,6 +50,7 @@ body {
         position: absolute;
         top: 70%;
         left: 10%;
+        width: 100%;
         img {
           height: 70px;
           width: 140px;
@@ -71,7 +63,12 @@ body {
       width: 100%;
       z-index: -1;
     }
-
+    .title {
+      position: absolute;
+      top: 5%;
+      left: 8%;
+      font-size: 4em;
+    }
   }
 }
 .axes {
