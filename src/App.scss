@@ -17,9 +17,6 @@ body {
     margin: auto;
     .tooltip {
       position: absolute;
-      // top: 0%;
-      // position: relative;
-      // top:50%;
       background-color: #FFE066CC;
       box-shadow: -10px 10px 20px black;
       height: 100px;
@@ -29,28 +26,58 @@ body {
       z-index: 10;
       display: inline;
     }
+    p {
+      position: absolute;
+      top: 5%;
+      left: 30%;
+      font-size: 6em;
+    }
+    .GDP-menu {
+        position: fixed;
+        top: 20%;
+        left: 5%;
+        height: 300px;
+        width: 200px;
+      p {
+        top: 0;
+        left: -2%;
+        width: 220px;
+        font-size: 30px;
+        font-weight: 900;
+        color: yellow;
+      }
+      .USA {
+        position: absolute;
+        top: 30%;
+        left: 10%;
+        img {
+          height: 70px;
+          width: 140px;
+        }
+      }
+      .BaH {
+        position: absolute;
+        top: 70%;
+        left: 10%;
+        img {
+          height: 70px;
+          width: 140px;
+        }
+      }
+    }
     svg {
-      // position: absolute;
-      // top:0;
-      // background-color: #ccc;
-      // background-image: url('./images/bg-graph.jpg');
-      background-color: #5BC0BE;
+      background-image: url('./images/bg-graph.jpg');
       height: 100%;
       width: 100%;
-      // padding: 2%;
       z-index: -1;
     }
 
   }
 }
-// .bar:hover {
-//   fill: white;
-// }
 .axes {
   fill: #680916;
   color: #680916;
   font-size: 20px;
-  // font-family: 'Courier New', Courier, monospace;
 }
 rect {
   pointer-events: all;
