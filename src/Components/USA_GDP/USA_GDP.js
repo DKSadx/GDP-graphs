@@ -20,11 +20,13 @@ export default class USAGDP extends Component {
     //  Using local json data (for speed)
     const data = require('../../gdp/USAGDPv2.json');
     this.setState({ data })
+    window.addEventListener("resize", () => this.draw());
   }
   draw() {
     d3.select(".App").selectAll("svg").remove();    // Makes new svg replace old one(removes old one)
-    const h = 700;
-    const w = 1500;
+    d3.select(".App").selectAll(".tooltip").remove(); // Removes the hover tooltip on
+    const h = document.documentElement.clientHeight * 0.69;
+    const w = document.documentElement.clientWidth * 0.78;
     const padding = 30;
     const evenBarColor = "#0B132B";
     const oddBarColor = "#1C2541";
@@ -75,8 +77,8 @@ export default class USAGDP extends Component {
         const date = d[0].split('-');
         tooltip.text(`Date: ${date[2]}.${date[1]}.${date[0]}, $${d[1]} Billion`)
           .style("display", "inline")
-          .style("left", (xScale(i) - 200) + "px")
-          .style("top", h - 200 + "px");
+          .style("left", (xScale(i) - ((w / 10) * 2.2)) + "px")
+          .style("top", h - ((h / 10) * 3) + "px");
         d3.select(node[i]).style("fill", "cyan");
       })
       .on("mouseout", (d, i, node) => {
