@@ -8,27 +8,28 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   .App {
-    height: 900px;
-    width: 1800px;
+    height: 700px;
+    width: 1500px;
     position: relative;
-    top: 250px;
+    top: 150px;
+    left: 4%;
     margin: auto;
     .tooltip {
       position: absolute;
       background-color: #FFE066CC;
       box-shadow: -10px 10px 20px black;
-      height: 100px;
-      width: 200px;
-      font-size: 25px;
+      height: 75px;
+      width: 170px;
+      font-size: 20px;
       z-index: 10;
       display: none;
     }
     .GDP-menu {
         position: fixed;
         top: 20%;
-        left: 5%;
-        height: 300px;
-        width: 200px;
+        left: 2%;
+        height: 250px;
+        width: 150px;
       p {
         top: 0;
         left: -2%;
@@ -40,7 +41,7 @@ body {
       .USA {
         position: absolute;
         top: 30%;
-        left: 10%;
+        left: 20%;
         img {
           height: 70px;
           width: 140px;
@@ -49,7 +50,7 @@ body {
       .BaH {
         position: absolute;
         top: 70%;
-        left: 10%;
+        left: 20%;
         width: 100%;
         img {
           height: 70px;

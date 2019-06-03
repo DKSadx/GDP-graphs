@@ -23,8 +23,8 @@ export default class USAGDP extends Component {
   }
   draw() {
     d3.select(".App").selectAll("svg").remove();    // Makes new svg replace old one(removes old one)
-    const h = 900;
-    const w = 1800;
+    const h = 700;
+    const w = 1500;
     const padding = 30;
     const evenBarColor = "#0B132B";
     const oddBarColor = "#1C2541";
@@ -75,7 +75,7 @@ export default class USAGDP extends Component {
         const date = d[0].split('-');
         tooltip.text(`Date: ${date[2]}.${date[1]}.${date[0]}, $${d[1]} Billion`)
           .style("display", "inline")
-          .style("left", (xScale(i) - 300) + "px")
+          .style("left", (xScale(i) - 200) + "px")
           .style("top", h - 200 + "px");
         d3.select(node[i]).style("fill", "cyan");
       })
