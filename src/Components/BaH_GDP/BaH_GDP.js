@@ -22,18 +22,18 @@ export default class USAGDP extends Component {
     window.addEventListener("resize", () => this.draw());
   }
   draw() {
-    d3.select(".App").selectAll("svg").remove();    // Makes new svg replace old one(removes old one)
-    d3.select(".App").selectAll(".tooltip").remove(); // Removes the hover tooltip on
+    d3.select(".App").selectAll("svg").remove();    // "replaces" old svg(removes old svg)
+    d3.select(".App").selectAll(".tooltip").remove(); // Removes the hover tooltip on rerender
     const h = document.documentElement.clientHeight * 0.69;
     const w = document.documentElement.clientWidth * 0.78;
     const padding = 30;
     const evenBarColor = "#0B132B";
     const oddBarColor = "#1C2541";
-    // Scales the height of the bars from 0,max to 0,h
+    // Scales the height of the bars
     const yScale = d3.scaleLinear()
       .domain([0, d3.max(this.state.data.data, d => parseInt((d[1] / 1000000000).toFixed(2)) + 2)])
       .range([padding, h - padding]);
-    // Reversed for the Y-axis
+    // Reverse scaling for the Y-axis
     const yScaleReverse = d3.scaleLinear()
       .domain([0, d3.max(this.state.data.data, d => parseInt((d[1] / 1000000000).toFixed(2)) + 1)])
       .range([h - padding, padding]);
