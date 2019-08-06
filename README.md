@@ -2,21 +2,21 @@
 
 GDP visualization app for Bosnia & Herzegovina and United States of America made with ReactJS and D3.
 
-#### Quick overview:
+**Live page:** <a  href="https://agitated-swirles-061141.netlify.com/">here</a>
 
-<hr />
+#### <u>Video:</u>
 
-<a href="#" target="_blank"><img src="./gdp.gif"
-alt="gdp preview" /></a>
-**Live preview** <a href="https://agitated-swirles-061141.netlify.com/">here</a>
+<!-- <iframe  src="https://player.vimeo.com/video/352262213"  width="800"  height="455"  frameborder="0"  allow="autoplay; fullscreen"  allowfullscreen></iframe> -->
 
-<hr />
+<a href="https://player.vimeo.com/video/352262213" target="_blank"><img src="video-thumbnail.png"
+ width="800" height="455"/></a>
 
-#### Technologies used:
-
-<hr />
+#### <u>Technologies used:</u>
 
 - HTML5
+
 - CSS3(Sass)
+
 - Javascript(ReactJS)
-- D3js
+
+- D3.js
