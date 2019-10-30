@@ -1,8 +1,8 @@
 ## Gross domestic product (GDP) visualization app
 
-GDP visualization app for Bosnia & Herzegovina and United States of America made with ReactJS and D3.
+React web app that displays Gross domestic product(GDP) graphs for Bosnia&Herzegovina and USA. The graphs are made with Data-Driven Documents(D3.js). Hovering over the bars displays GDP and the date. Data for the GDP is taken from worldometers.info.
 
-**Live page:** <a  href="https://agitated-swirles-061141.netlify.com/">here</a>
+**Live page:** <a  href="https://www.projects.darkokojovic.com/gdp/">here</a>
 
 #### <u>Video:</u>
 
